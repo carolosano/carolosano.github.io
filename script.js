@@ -32,7 +32,7 @@ async function cargarPacks() {
     // Mostrar los detalles de cada pack en la consola
     packs.forEach(pack => pack.mostrarDetalles());
     
-    // Opcional: Renderizar los packs en el DOM
+    // Renderizar los packs en el DOM
     renderizarPacks(packs);
   } catch (error) {
     console.error('Error al cargar los packs:', error);
@@ -63,7 +63,7 @@ function renderizarPacks(packs) {
     </div>
   `).join('');
 
-  // 🧠 ACÁ AGREGÁS LOS EVENTOS DESPUÉS DE CREAR EL HTML
+  
   const botonesAgregar = document.querySelectorAll('.agregar-pack');
   botonesAgregar.forEach(boton => {
     boton.addEventListener('click', () => {
@@ -128,7 +128,7 @@ function mostrarCarritoDesdeStorage() {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  // Otras funciones que llamás
+  
   mostrarCarritoDesdeStorage();
 });
 
