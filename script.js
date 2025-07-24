@@ -68,7 +68,7 @@ function renderizarPacks(packs) {
   botonesAgregar.forEach(boton => {
     boton.addEventListener('click', () => {
       const pack = JSON.parse(boton.dataset.pack);
-      agregarPackAlCarrito(pack);
+      agregarPackAlCarrito(pack, boton);
     });
   });
 }
@@ -76,7 +76,7 @@ function renderizarPacks(packs) {
 
 
 
-function agregarPackAlCarrito(pack) {
+function agregarPackAlCarrito(pack, boton) {
   const carrito = document.getElementById('carrito');
   const precioTotalDisplay = document.getElementById('precioTotal');
 
@@ -94,20 +94,44 @@ function agregarPackAlCarrito(pack) {
     };
   }
 
-  carritoActual.servicios = carritoActual.servicios.concat(pack.elementos);
+  // Buscar (o crear) el contenedor del mensaje de error debajo del botón
+  let mensajeError = boton.nextElementSibling;
+  if (!mensajeError || !mensajeError.classList.contains('mensaje-error')) {
+    mensajeError = document.createElement('div');
+    mensajeError.classList.add('mensaje-error');
+    mensajeError.style.color = 'red';
+    mensajeError.style.marginTop = '5px';
+    boton.insertAdjacentElement('afterend', mensajeError);
+  }
+
+  // Verificar si el pack ya está agregado (comparando nombrePack)
+  if (carritoActual.servicios.includes(pack.nombrePack)) {
+    mensajeError.textContent = 'Este pack ya está en el carrito.';
+    return;
+  } else {
+    mensajeError.textContent = ''; // limpiar mensaje si no hay error
+  }
+
+  // Agregar solo el nombre del pack al carrito
+  carritoActual.servicios.push(pack.nombrePack);
+
+  // Sumar el precio al total
   carritoActual.precioTotal = (
     parseFloat(carritoActual.precioTotal) + parseFloat(pack.precio)
   ).toFixed(2);
 
+  // Guardar en localStorage
   localStorage.setItem('packArmado', JSON.stringify(carritoActual));
 
+  // Actualizar el carrito en el DOM (mostrar solo nombres)
   carrito.innerHTML = `
     <ul>
-      ${carritoActual.servicios.map(servicio => `<li>${servicio}</li>`).join('')}
+      ${carritoActual.servicios.map(nombre => `<li>${nombre}</li>`).join('')}
     </ul>
   `;
   precioTotalDisplay.textContent = `Precio Total: $${carritoActual.precioTotal}`;
 }
+
 
 
 
@@ -128,7 +152,9 @@ function mostrarCarritoDesdeStorage() {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  
+  // Limpiar carrito al refrescar la página
+  localStorage.removeItem('packArmado');
+
   mostrarCarritoDesdeStorage();
 });
 
