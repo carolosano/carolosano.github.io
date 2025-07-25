@@ -1,3 +1,4 @@
+// Archivo packAlternativo.js
 
 class PackAlternativo {
   constructor(nombre, items) {
@@ -6,15 +7,17 @@ class PackAlternativo {
     this.precioTotal = 0; 
   }
 
-  // calcula el precio total
+  // Calcula el precio total
   calcularPrecioTotal(precios) {
     this.precioTotal = precios.reduce((total, precio) => total + parseFloat(precio), 0);
   }
 
-  //muestro los servicios 
+  // Muestra los servicios
   mostrarServicios() {
     return this.items.map(servicio => `- ${servicio}`).join('\n');
   }
 }
+
+
 
 export default PackAlternativo;

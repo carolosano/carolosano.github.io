@@ -1,4 +1,6 @@
-class Producto {
+// Archivo Producto.js
+
+export default class Producto {
   constructor(nombrePack, elementos, precio) {
     this.nombrePack = nombrePack;
     this.elementos = elementos;

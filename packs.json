@@ -1,0 +1,12 @@
+[
+  {
+    "nombrePack": "Pack Publicitario",
+    "precio": 28000,
+    "elementos": ["Análisis de métricas", "Piezas RRSS", "Reportes mensuales", "Producción de fotos"]
+  },
+  {
+    "nombrePack": "Pack Gráfico",
+    "precio": 32000,
+    "elementos": ["Flyers", "Banners", "Piezas RRSS", "Edición Videos", "Diseño Editorial", "Producción de fotos"]
+  }
+]
